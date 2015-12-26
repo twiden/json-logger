@@ -1,4 +1,5 @@
 import json
+import socket
 from datetime import datetime
 
 
@@ -20,6 +21,8 @@ class JsonLogger(object):
             d['_utc_timestamp'] = datetime.utcnow().isoformat()
             d['_component'] = self.name
             d['_level'] = self.level
+            d['_hostname'] = socket.gethostname()
+            d['_ip_address'] = socket.gethostbyname(d['_hostname'])
             self.logger(json.dumps(d))
 
     def __init__(self, name):
