@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from setuptools import setup
 
 setup(
@@ -9,6 +11,6 @@ setup(
     author_email='tobbetrollkarl@gmail.com',
     url='https://www.python.org/sigs/distutils-sig/',
     packages=['twiden', 'twiden.logging'],
-    install_requires=[]
+    install_requires=[],
     dependency_links=[]
 )
