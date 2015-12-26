@@ -2,10 +2,8 @@ import json
 import socket
 import os
 import time
+import psutil
 from datetime import datetime
-
-
-STARTED = datetime.utcnow()
 
 
 def getLogger(name, **kwargs):
@@ -22,14 +20,16 @@ class JsonLogger(object):
             self.level = level
 
         def __call__(self, **kwargs):
-            now = datetime.utcnow()
+            now = datetime.now()
+            pid = os.getpid()
+            pidcreated = datetime.fromtimestamp(psutil.Process(pid).create_time())
             d = kwargs.copy()
-            d['_utc_timestamp'] = datetime.utcnow().isoformat()
-            d['_utc_started'] = STARTED.isoformat()
-            d['_uptime'] = str(now - STARTED)
+            d['_timestamp'] = datetime.utcnow().isoformat()
+            d['_started'] = pidcreated.isoformat()
+            d['_uptime'] = str(now - pidcreated)
             d['_component'] = self.name
             d['_level'] = self.level
-            d['_pid'] = os.getpid()
+            d['_pid'] = pid
             d['_hostname'] = socket.gethostname()
             d['_ip_address'] = socket.gethostbyname(d['_hostname'])
             self.logger(json.dumps(d))
