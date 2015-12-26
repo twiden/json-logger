@@ -9,6 +9,7 @@ logger.warning(what='Terrible danger!', how_much=100)
 >>> {
 	"_level": "warning",
 	"what": "Terrible danger!",
+	"_pid": 11578,
 	"_component": "__main__",
 	"_ip_address": "192.168.1.10",
 	"how_much": 100,
