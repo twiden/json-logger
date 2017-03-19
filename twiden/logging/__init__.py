@@ -29,7 +29,7 @@ class JsonLogger(object):
                 try:
                     json.dumps(v)
                 except TypeError:
-                    raise TypeError('Value for key \'{}\' is not JSON serializable')
+                    raise TypeError('Value for key {} is not JSON serializable'.format(k))
 
             d['_timestamp'] = datetime.utcnow().isoformat()
             d['_started'] = pidcreated.isoformat()
