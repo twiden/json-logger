@@ -24,6 +24,13 @@ class JsonLogger(object):
             pid = os.getpid()
             pidcreated = datetime.fromtimestamp(psutil.Process(pid).create_time())
             d = kwargs.copy()
+
+            for k, v in d.items():
+                try:
+                    json.dumps(v)
+                except TypeError:
+                    raise TypeError('Value for key \'{}\' is not JSON serializable')
+
             d['_timestamp'] = datetime.utcnow().isoformat()
             d['_started'] = pidcreated.isoformat()
             d['_uptime'] = str(now - pidcreated)
@@ -32,6 +39,7 @@ class JsonLogger(object):
             d['_pid'] = pid
             d['_hostname'] = socket.gethostname()
             d['_ip_address'] = socket.gethostbyname(d['_hostname'])
+
             self.logger(json.dumps(d))
 
     def __init__(self, name):
