@@ -45,7 +45,7 @@ class JsonLogger(object):
     def __init__(self, name):
         import logging
         self.name = name
-        logging.basicConfig(format='', level=logging.DEBUG)
+        logging.basicConfig(format='', level=logging.INFO)
         self.logger = logging.getLogger(name)
 
         levels = ('info', 'warning', 'error', 'critical', 'exception')
