@@ -50,7 +50,7 @@ class JsonLogger(object):
         if os.environ.get('LOGSTASH_HOST') and os.environ.get('LOGSTASH_TCP_PORT'):
             self.logger.addHandler(
                 logstash.TCPLogstashHandler(
-                    os.environ.get(os.environ.get('LOGSTASH_HOST')),
+                    os.environ.get('LOGSTASH_HOST'),
                     os.environ.get('LOGSTASH_TCP_PORT'),
                     version=1
                 )
