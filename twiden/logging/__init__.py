@@ -40,7 +40,7 @@ class JsonLogger(object):
             d['_hostname'] = socket.gethostname()
             d['_ip_address'] = socket.gethostbyname(d['_hostname'])
 
-            self.logger(json.dumps(d), extra=d)
+            self.logger(json.dumps(d), extra={k: v if v else str(v) for k, v in d.items()})
 
     def __init__(self, name):
         import logging
