@@ -3,7 +3,6 @@ import socket
 import os
 import psutil
 from datetime import datetime
-import logstash
 
 
 def getLogger(name, **kwargs):
@@ -47,14 +46,6 @@ class JsonLogger(object):
         self.name = name
         logging.basicConfig(format='', level=logging.INFO)
         self.logger = logging.getLogger(name)
-        if os.environ.get('LOGSTASH_HOST') and os.environ.get('LOGSTASH_TCP_PORT'):
-            self.logger.addHandler(
-                logstash.TCPLogstashHandler(
-                    os.environ.get('LOGSTASH_HOST'),
-                    os.environ.get('LOGSTASH_TCP_PORT'),
-                    version=1
-                )
-            )
 
         levels = ('info', 'warning', 'error', 'critical', 'exception')
         for level in levels:
